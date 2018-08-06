@@ -1,0 +1,36 @@
+﻿@page
+@model TasteRestaurant.Pages.CategoryTypes.DeleteModel
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete category type</h2>
+<form method="post">
+
+    <div class="form-border">
+        <fieldset disabled>
+            <input type="hidden" asp-for="CategoryType.Id" />
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="CategoryType.Name" class="custom-label"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="CategoryType.Name" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="CategoryType.DisplayOrder" class="custom-label"></label>
+                </div>
+                <div class="col-sm-1">
+                    <input asp-for="CategoryType.DisplayOrder" class="form-control" />
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <br />
+    <div class="form-group">
+        <input type="submit" value="Delete" class="btn btn-sm btn-danger" />
+        <a asp-page="Index" class="btn btn-sm btn-success">Back to list</a>
+    </div>
+</form>

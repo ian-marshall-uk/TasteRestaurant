@@ -9,12 +9,11 @@ using TasteRestaurant.Data;
 
 namespace TasteRestaurant.Pages.CategoryTypes
 {
-    public class EditModel : PageModel
+    public class DeleteModel : PageModel
     {
-
         private readonly ApplicationDbContext _db;
 
-        public EditModel(ApplicationDbContext db)
+        public DeleteModel(ApplicationDbContext db)
         {
             _db = db;
         }
@@ -22,7 +21,7 @@ namespace TasteRestaurant.Pages.CategoryTypes
         [BindProperty]
         public CategoryType CategoryType { get; set; }
 
-        public async Task<IActionResult> OnGet(int ?id)
+        public async Task<IActionResult> OnGet(int? id)
         {
             if (id == null)
                 return NotFound();
@@ -32,18 +31,23 @@ namespace TasteRestaurant.Pages.CategoryTypes
                 return NotFound();
 
             return Page();
-
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPost(int? id)
         {
-            if (!ModelState.IsValid)
-                return Page();
+            if (id == null)
+                return NotFound();
 
-            _db.Attach(CategoryType).State = EntityState.Modified;
-            await _db.SaveChangesAsync();
+            //CategoryType = await _db.CategoryType.FindAsync(id); // This will also do the same as the line below
+            CategoryType = await _db.CategoryType.SingleOrDefaultAsync(c => c.Id == id);
+            if (CategoryType != null)
+            {
+                _db.CategoryType.Remove(CategoryType);
+                await _db.SaveChangesAsync();
+            }
 
-            return (RedirectToPage("./Index"));
+            return RedirectToPage("./Index");
         }
+
     }
 }

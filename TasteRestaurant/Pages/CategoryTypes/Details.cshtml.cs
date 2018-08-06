@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,20 +10,20 @@ using TasteRestaurant.Data;
 
 namespace TasteRestaurant.Pages.CategoryTypes
 {
-    public class EditModel : PageModel
+    public class DetailsModel : PageModel
     {
 
         private readonly ApplicationDbContext _db;
 
-        public EditModel(ApplicationDbContext db)
+        public DetailsModel(ApplicationDbContext db)
         {
             _db = db;
         }
 
         [BindProperty]
-        public CategoryType CategoryType { get; set; }
+        public CategoryType CategoryType { get; set;  }
 
-        public async Task<IActionResult> OnGet(int ?id)
+        public async Task<IActionResult> OnGet(int? id)
         {
             if (id == null)
                 return NotFound();
@@ -32,18 +33,6 @@ namespace TasteRestaurant.Pages.CategoryTypes
                 return NotFound();
 
             return Page();
-
-        }
-
-        public async Task<IActionResult> OnPostAsync()
-        {
-            if (!ModelState.IsValid)
-                return Page();
-
-            _db.Attach(CategoryType).State = EntityState.Modified;
-            await _db.SaveChangesAsync();
-
-            return (RedirectToPage("./Index"));
         }
     }
 }
