@@ -12,9 +12,9 @@ namespace TasteRestaurant.Pages.FoodTypes
 {
     public class EditModel : PageModel
     {
-        private readonly TasteRestaurant.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public EditModel(TasteRestaurant.Data.ApplicationDbContext context)
+        public EditModel(ApplicationDbContext context)
         {
             _context = context;
         }
