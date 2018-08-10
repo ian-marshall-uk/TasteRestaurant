@@ -26,7 +26,7 @@
                 <label asp-for="MenuItemVM.MenuItem.Description" class="custom-label"></label>
             </div>
             <div class="col-sm-5">
-                <input asp-for="MenuItemVM.MenuItem.Description" class="form-control" />
+                <textarea style="height:150px" asp-for="MenuItemVM.MenuItem.Description" class="form-control"></textarea>
             </div>
             <span asp-validation-for="MenuItemVM.MenuItem.Description" class="text-danger"></span>
         </div>
