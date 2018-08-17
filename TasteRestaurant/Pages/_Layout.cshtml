@@ -1,4 +1,6 @@
-﻿@using TasteRestaurant.Utilities
+﻿@using Microsoft.AspNetCore.Http
+@using TasteRestaurant.Utilities
+@inject IHttpContextAccessor HttpContextAccessor
 
 !DOCTYPE html>
 <html>
@@ -33,7 +35,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @if (User.IsInRole(StaticData.AdminEndUser) ||
-                       User.IsInRole(StaticData.CustomerEndUser))
+                      User.IsInRole(StaticData.CustomerEndUser))
                     {
                         <li><a asp-page="/Order/OrderHistory">Order history</a></li>
                     }
@@ -57,13 +59,24 @@
                         </li>
                     }
                     @if (User.IsInRole(StaticData.AdminEndUser) ||
-                         User.IsInRole(StaticData.CustomerEndUser))
+                        User.IsInRole(StaticData.CustomerEndUser))
                     {
-                        <li style="color: white;">
-                            <a href="#">
-                                <span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;(0)
-                            </a>
-                        </li>
+                        @if (HttpContextAccessor.HttpContext.Session.GetInt32("CartCount") != null)
+                        {
+                            <li style="color: white;">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;(@HttpContextAccessor.HttpContext.Session.GetInt32("CartCount"))
+                                </a>
+                            </li>
+                        }
+                         else
+                         {
+                             <li style="color: white;">
+                                 <a href="#">
+                                     <span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;(0)
+                                 </a>
+                             </li>
+                         }
                     }
                     <li><a asp-page="/Contact">Contact</a></li>
                 </ul>

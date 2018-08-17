@@ -28,7 +28,7 @@ namespace TasteRestaurant
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DesktopConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("LaptopConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -44,7 +44,11 @@ namespace TasteRestaurant
             {
                 options.AddPolicy(StaticData.AdminEndUser, policy => policy.RequireRole(StaticData.AdminEndUser));
             });
-
+            services.AddSession(options =>
+            {
+                options.IdleTimeout=TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+            });
             // Register no-op EmailSender used by account confirmation and password reset during development
             // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
             services.AddSingleton<IEmailSender, EmailSender>();
@@ -67,7 +71,7 @@ namespace TasteRestaurant
             app.UseStaticFiles();
 
             app.UseAuthentication();
-
+            app.UseSession();
             app.UseMvc();
         }
     }
