@@ -4,17 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using TasteRestaurant.Data;
 using TasteRestaurant.ViewModel;
 
-namespace TasteRestaurant.Pages
+namespace TasteRestaurant.Pages.Cart
 {
     public class IndexModel : PageModel
     {
         private readonly ApplicationDbContext _db;
-        [TempData]
-        public string StatusMessage { get; set; }
 
         public IndexModel(ApplicationDbContext db)
         {
@@ -22,15 +19,18 @@ namespace TasteRestaurant.Pages
         }
 
         [BindProperty]
-        public IndexViewModel IndexVm { get; set; }
+        public OrderDetailsCart DetailCart { get; set; }
 
-        public async Task OnGet()
+        public void OnGet()
         {
-            IndexVm = new IndexViewModel()
+            DetailCart = new OrderDetailsCart()
             {
-                MenuItems = await _db.MenuItem.Include(m => m.CategoryType).Include(m => m.FoodType).ToListAsync(),
-                CategoryTypes =  _db.CategoryType.OrderBy(c => c.DisplayOrder)
+                OrderHeader = new OrderHeader()
             };
+            DetailCart.OrderHeader.OrderTotal = 0;
+
+
+
         }
     }
 }

@@ -15,6 +15,9 @@ namespace TasteRestaurant.Pages
     {
         private readonly ApplicationDbContext _db;
 
+        [TempData]
+        public string StatusMessage { get; set; }  
+
         public DetailsModel(ApplicationDbContext db)
         {
             _db = db;
@@ -66,6 +69,16 @@ namespace TasteRestaurant.Pages
                     .Count;
                 HttpContext.Session.SetInt32("CartCount", count);
 
+                var menuItemFromDb = _db.MenuItem.FirstOrDefault(m => m.Id == CartObj.MenuItemId);
+
+                if (menuItemFromDb == null)
+                {
+                    StatusMessage = "Item added to cart";
+                }
+                else
+                {
+                    StatusMessage = menuItemFromDb.Name + " added to cart";
+                }
                 return RedirectToPage("Index");
 
             }

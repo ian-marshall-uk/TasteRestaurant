@@ -28,7 +28,7 @@ namespace TasteRestaurant
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("LaptopConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DesktopConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -39,6 +39,7 @@ namespace TasteRestaurant
                 {
                     options.Conventions.AuthorizeFolder("/Account/Manage");
                     options.Conventions.AuthorizePage("/Account/Logout");
+                    options.Conventions.AuthorizePage("/Details");
                 });
             services.AddAuthorization(options =>
             {
