@@ -43,7 +43,6 @@ namespace TasteRestaurant.Pages
                 //Get user id of the currently logged in user
                 var claimsIdentity = (ClaimsIdentity) this.User.Identity;
                 var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
-
                 CartObj.ApplicationUserId = claim.Value;
 
                 //ShoppingCart cartFromDb = _db.ShoppingCart.Where(c => c.ApplicationUserId == CartObj.ApplicationUserId // This was the course version but ReSharper suggested the following line
