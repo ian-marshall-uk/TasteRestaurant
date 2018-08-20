@@ -2,7 +2,7 @@
 @using TasteRestaurant.Utilities
 @inject IHttpContextAccessor HttpContextAccessor
 
-!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -12,12 +12,14 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.css" />
     </environment>
 </head>
 <body>
@@ -35,7 +37,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @if (User.IsInRole(StaticData.AdminEndUser) ||
-                      User.IsInRole(StaticData.CustomerEndUser))
+                     User.IsInRole(StaticData.CustomerEndUser))
                     {
                         <li><a asp-page="/Order/OrderHistory">Order history</a></li>
                     }
@@ -59,24 +61,24 @@
                         </li>
                     }
                     @if (User.IsInRole(StaticData.AdminEndUser) ||
-                        User.IsInRole(StaticData.CustomerEndUser))
+                       User.IsInRole(StaticData.CustomerEndUser))
                     {
                         @if (HttpContextAccessor.HttpContext.Session.GetInt32("CartCount") != null)
                         {
                             <li style="color: white;">
-                                <a href="#">
+                                <a href="/Cart/Index">
                                     <span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;(@HttpContextAccessor.HttpContext.Session.GetInt32("CartCount"))
                                 </a>
                             </li>
                         }
-                         else
-                         {
-                             <li style="color: white;">
-                                 <a href="#">
-                                     <span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;(0)
-                                 </a>
-                             </li>
-                         }
+                        else
+                        {
+                            <li style="color: white;">
+                                <a href="/Cart/Index">
+                                    <span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;(0)
+                                </a>
+                            </li>
+                        }
                     }
                     <li><a asp-page="/Contact">Contact</a></li>
                 </ul>
@@ -97,6 +99,7 @@
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
         <script src="~/js/AdminMenu.js" asp-append-version="true"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.js"></script>
     </environment>
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
@@ -113,6 +116,7 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
         <script src="~/js/AdminMenu.js" asp-append-version="true"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.js"></script>
     </environment>
 
     @RenderSection("Scripts", required: false)
