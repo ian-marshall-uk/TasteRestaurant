@@ -1,0 +1,32 @@
+﻿@page
+@model TasteRestaurant.Pages.Order.OrderHistoryModel
+@{
+    ViewData["Title"] = "OrderHistory";
+}
+
+<h2>Order history</h2>
+
+<div>
+    @if (Model.OrderDetailsViewModel.Count == 5)
+    {
+        <a asp-page="OrderHistory" asp-route-ShowAll="true" class="btn btn-sm btn-success"> Load all orders</a>
+    }
+    else
+    {
+        
+    }
+</div>
+<br/>
+@if (Model.OrderDetailsViewModel.Count > 0)
+{
+    foreach (var item in Model.OrderDetailsViewModel)
+    {
+        <div class="thumbnail row">
+            @Html.Partial("_IndividualOrderDetails",  item)
+        </div>
+    }
+}
+else
+{
+    <p>No previous orders available...</p>
+}

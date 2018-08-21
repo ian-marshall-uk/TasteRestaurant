@@ -119,7 +119,7 @@ namespace TasteRestaurant.Pages.Cart
             ;
             _db.SaveChanges();
 
-            return RedirectToPage("../Index");
+            return RedirectToPage("../Order/OrderConfirmation", new {id = orderHeader.Id});
         }
     }
 }

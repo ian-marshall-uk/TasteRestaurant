@@ -1,0 +1,48 @@
+﻿@model TasteRestaurant.ViewModel.OrderDetailsViewModel
+
+<div class="col-sm-5">
+    Order number: @Model.OrderHeader.Id
+    <ul>
+        @foreach (var item in Model.OrderDetails)
+        {
+            <li>@item.Name x @item.Count</li>
+        }
+    </ul>
+</div>
+<div class="col-sm-5">
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-2">
+            Order total:
+        </div>
+        <div class="col-sm-6">
+            £@Model.OrderHeader.OrderTotal
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-2">
+            Pickup time: 
+        </div>
+        <div class="col-sm-6">
+            @Model.OrderHeader.OrderDate.ToShortDateString()&nbsp;@Model.OrderHeader.OrderDate.ToShortTimeString()
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-2">
+            Order status:
+        </div>
+        <div class="col-sm-6">
+            @Model.OrderHeader.Status
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-2">
+            Comments:
+        </div>
+        <div class="col-sm-6">
+            @Model.OrderHeader.Comments
+        </div>
+    </div>
+</div>
+<div class="col-sm-2">
+
+</div>
