@@ -1,0 +1,43 @@
+﻿@page
+@model TasteRestaurant.Pages.Order.OrderPickupModel
+@using TasteRestaurant.Utilities
+
+@{
+    ViewData["Title"] = "OrderPickup";
+}
+
+<h2>Order pickup</h2>
+
+<form method="post">
+    @*We will add search functionality here*@
+    <br/>
+    @if (Model.OrderDetailsViewModel.Count > 0)
+    {
+        foreach (var item in Model.OrderDetailsViewModel)
+        {
+            <div class="thumbnail row">
+                @Html.Partial("_IndividualOrderDetails", item);
+                <div class="col-sm-2">
+                    @if (item.OrderHeader.Status.Equals(StaticData.StatusReadyForPickup))
+                    {
+                        <a asp-page="OrderPickupDetails" asp-route-orderId="@item.OrderHeader.Id" class="btn btn-success">
+                            <span class="glyphicon glyphicon-list"></span>
+                            Pick up details
+                        </a>
+                    }
+                    else
+                    {
+                        <button type="submit" disabled class="btn btn-primary">
+                            @item.OrderHeader.Status
+                        </button>
+                    }
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>No orders available...</p>
+    }
+</form>
+
