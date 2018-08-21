@@ -45,6 +45,17 @@ namespace TasteRestaurant
             {
                 options.AddPolicy(StaticData.AdminEndUser, policy => policy.RequireRole(StaticData.AdminEndUser));
             });
+            services.AddAuthentication().AddFacebook(facebookOptions =>
+            {
+                facebookOptions.AppId = "1800300090023848";
+                facebookOptions.AppSecret = "c9d8dc394fbd09b41e6c2d0d4f3f1133";
+            });
+            services.AddAuthentication().AddGoogle(googleOptions =>
+            {
+                googleOptions.ClientId = "946661940642-jfpph0k0a4e169kqa2e9s38ngehnqk0p.apps.googleusercontent.com";
+                googleOptions.ClientSecret = "ODvqA-0QJUqkUlevBlhuBlsV";
+            });
+
             services.AddSession(options =>
             {
                 options.IdleTimeout=TimeSpan.FromMinutes(30);
