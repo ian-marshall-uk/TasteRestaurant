@@ -8,15 +8,46 @@
 
 <h2>Order pickup</h2>
 
-<form method="post">
-    @*We will add search functionality here*@
+<form method="get" asp-page="OrderPickup">
+    <div style="height: 60px;">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-12 text-right">
+                    <label class="radio-inline">
+                        @Html.RadioButton("option", "name") Name
+                    </label>
+                    <label class="radio-inline">
+                        @Html.RadioButton("option", "email") Email
+                    </label>
+                    <label class="radio-inline">
+                        @Html.RadioButton("option", "phone") Phone
+                    </label>
+                    <label class="radio-inline">
+                        @Html.RadioButton("option", "order") Order no.
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="pull-right">
+                    <button type="submit" name="submit" value="search" class="btn btn-sm btn-primary">
+                        <span class="glyphicon glyphicon-search"></span> Search
+                    </button>
+                </div>
+                <div class="pull-right">
+                    @Html.Editor("search", new {htmlAttributes = new{ @class="form-control"}})
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+
     <br/>
     @if (Model.OrderDetailsViewModel.Count > 0)
     {
         foreach (var item in Model.OrderDetailsViewModel)
         {
             <div class="thumbnail row">
-                @Html.Partial("_IndividualOrderDetails", item);
+                @Html.Partial("_IndividualOrderDetails", item)
                 <div class="col-sm-2">
                     @if (item.OrderHeader.Status.Equals(StaticData.StatusReadyForPickup))
                     {
